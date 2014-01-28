@@ -1589,7 +1589,12 @@ specific_eval(int argc, VALUE *argv, VALUE klass, VALUE self)
  *  within the context of the receiver (_obj_). In order to set the
  *  context, the variable +self+ is set to _obj_ while
  *  the code is executing, giving the code access to _obj_'s
- *  instance variables. In the version of <code>instance_eval</code>
+ *  instance variables.
+ *
+ *  In the version of <code>instance_eval</code> that takes a block,
+ *  _obj_ is also passed as the only block parameter.
+ *
+ *  In the version of <code>instance_eval</code>
  *  that takes a +String+, the optional second and third
  *  parameters supply a filename and starting line number that are used
  *  when reporting compilation errors.
@@ -1601,6 +1606,7 @@ specific_eval(int argc, VALUE *argv, VALUE klass, VALUE self)
  *     end
  *     k = KlassWithSecret.new
  *     k.instance_eval { @secret }   #=> 99
+ *     k.instance_eval {|receiver| receiver == self } #=> true
  */
 
 VALUE
