@@ -1583,13 +1583,13 @@ specific_eval(int argc, VALUE *argv, VALUE klass, VALUE self)
 /*
  *  call-seq:
  *     obj.instance_eval(string [, filename [, lineno]] )   -> obj
- *     obj.instance_eval {| | block }                       -> obj
+ *     obj.instance_eval {|obj| block }                     -> obj
  *
  *  Evaluates a string containing Ruby source code, or the given block,
  *  within the context of the receiver (_obj_). In order to set the
  *  context, the variable +self+ is set to _obj_ while
  *  the code is executing, giving the code access to _obj_'s
- *  instance variables.
+ *  instance variables and private methods.
  *
  *  When <code>instance_eval</code> is given a block, _obj_ is also
  *  passed in as the block's only argument.
@@ -1602,10 +1602,15 @@ specific_eval(int argc, VALUE *argv, VALUE klass, VALUE self)
  *       def initialize
  *         @secret = 99
  *       end
+ *       private
+ *       def the_secret
+ *         "Ssssh! The secret is #{@secret}."
+ *       end
  *     end
  *     k = KlassWithSecret.new
- *     k.instance_eval { @secret }   #=> 99
- *     k.instance_eval {|receiver| receiver == self } #=> true
+ *     k.instance_eval { @secret }          #=> 99
+ *     k.instance_eval { the_secret }       #=> "Ssssh! The secret is 99."
+ *     k.instance_eval {|obj| obj == self } #=> true
  */
 
 VALUE
