@@ -1591,13 +1591,12 @@ specific_eval(int argc, VALUE *argv, VALUE klass, VALUE self)
  *  the code is executing, giving the code access to _obj_'s
  *  instance variables.
  *
- *  In the version of <code>instance_eval</code> that takes a block,
- *  _obj_ is also passed as the only block parameter.
+ *  When <code>instance_eval</code> is given a block, _obj_ is also
+ *  passed in as the block's only argument.
  *
- *  In the version of <code>instance_eval</code>
- *  that takes a +String+, the optional second and third
- *  parameters supply a filename and starting line number that are used
- *  when reporting compilation errors.
+ *  When <code>instance_eval</code> is given a +String+, the optional
+ *  second and third parameters supply a filename and starting line number
+ *  that are used when reporting compilation errors.
  *
  *     class KlassWithSecret
  *       def initialize
